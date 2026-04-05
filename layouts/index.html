@@ -1,80 +1,120 @@
 {{ define "main" }}
 
 {{/* ── Hero Section ── */}}
-<section class="py-16 sm:py-24 text-center">
-  <p class="font-mono text-xs text-[var(--color-accent-cyan)] tracking-[0.3em] uppercase mb-4">
-    // System Initialized
-  </p>
-  <h1 class="text-4xl sm:text-5xl lg:text-6xl font-mono font-bold text-[var(--color-text-primary)] leading-tight">
-    Future Gadget Labs
-  </h1>
-  <p class="mt-4 text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
-    {{ .Site.Params.tagline }}
-  </p>
-  <div class="mt-6 font-mono text-sm text-[var(--color-text-muted)]">
-    <span class="cursor-blink">Orchestrating {{ len (where .Site.RegularPages "Section" "ne" "vault") }} active gadgets</span>
+<section class="hero-gradient">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-bg-secondary)]/60 mb-8 fade-in-up">
+        <span class="status-dot bg-[var(--color-status-live)]"></span>
+        <span class="text-xs font-mono text-[var(--color-text-muted)]">All systems operational</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-mono font-bold text-[var(--color-text-primary)] leading-[1.1] tracking-tight fade-in-up stagger-1">
+        Future Gadget<br>
+        <span class="bg-gradient-to-r from-[var(--color-accent-blue)] via-[var(--color-accent-cyan)] to-[var(--color-accent-blue)] bg-clip-text text-transparent">
+          Laboratory
+        </span>
+      </h1>
+
+      <p class="mt-6 text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-xl mx-auto leading-relaxed fade-in-up stagger-2">
+        {{ .Site.Params.tagline }}
+      </p>
+
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 fade-in-up stagger-3">
+        <a href="/tools/" class="btn-primary">
+          Explore Gadgets
+          <span>&rarr;</span>
+        </a>
+        <a href="/shop/" class="btn-secondary">
+          Visit Shop
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
 {{/* ── System Status Bar ── */}}
-<section class="mb-12">
-  <div class="flex flex-wrap items-center justify-center gap-6 px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)]/50">
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-16 relative z-10">
+  <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 px-6 py-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)]/80 backdrop-blur-sm shadow-lg shadow-black/20">
     {{ $allPages := where .Site.RegularPages "Section" "ne" "vault" }}
     {{ $live := where $allPages ".Params.status" "Live" }}
     {{ $beta := where $allPages ".Params.status" "Beta" }}
     {{ $rd := where $allPages ".Params.status" "R&D" }}
 
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2.5">
       <span class="status-dot bg-[var(--color-status-live)]"></span>
-      <span class="font-mono text-xs text-[var(--color-text-secondary)]">Live: {{ len $live }}</span>
+      <span class="font-mono text-xs text-[var(--color-text-secondary)]"><span class="text-[var(--color-text-primary)] font-semibold">{{ len $live }}</span> Live</span>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="hidden sm:block w-px h-5 bg-[var(--color-border)]"></div>
+    <div class="flex items-center gap-2.5">
       <span class="status-dot bg-[var(--color-status-beta)]"></span>
-      <span class="font-mono text-xs text-[var(--color-text-secondary)]">Beta: {{ len $beta }}</span>
+      <span class="font-mono text-xs text-[var(--color-text-secondary)]"><span class="text-[var(--color-text-primary)] font-semibold">{{ len $beta }}</span> Beta</span>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="hidden sm:block w-px h-5 bg-[var(--color-border)]"></div>
+    <div class="flex items-center gap-2.5">
       <span class="status-dot bg-[var(--color-status-rd)]"></span>
-      <span class="font-mono text-xs text-[var(--color-text-secondary)]">R&amp;D: {{ len $rd }}</span>
+      <span class="font-mono text-xs text-[var(--color-text-secondary)]"><span class="text-[var(--color-text-primary)] font-semibold">{{ len $rd }}</span> In Research</span>
     </div>
-    <div class="hidden sm:block w-px h-4 bg-[var(--color-border)]"></div>
-    <div class="font-mono text-xs text-[var(--color-text-muted)]">
-      Last build: {{ now.Format "2006-01-02 15:04 MST" }}
+    <div class="hidden lg:block w-px h-5 bg-[var(--color-border)]"></div>
+    <div class="hidden lg:flex items-center gap-2 font-mono text-xs text-[var(--color-text-muted)]">
+      <span class="status-dot-static bg-[var(--color-accent-blue)]"></span>
+      Build {{ now.Format "2006.01.02" }}
     </div>
   </div>
 </section>
 
 {{/* ── Featured Gadgets Grid ── */}}
-<section class="mb-16">
-  <div class="flex items-center gap-3 mb-8">
-    <span class="text-[var(--color-accent-cyan)] font-mono text-sm">&gt;</span>
-    <h2 class="text-xl font-mono font-semibold text-[var(--color-text-primary)]">All Gadgets</h2>
-    <div class="flex-1 h-px bg-[var(--color-border)]"></div>
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+  <div class="section-divider mb-10">
+    <span class="text-[var(--color-accent-cyan)] font-mono text-sm">//</span>
+    <h2 class="text-xl font-mono font-semibold text-[var(--color-text-primary)]">Active Gadgets</h2>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {{/* Pull all regular pages except vault, sorted by weight then title */}}
-    {{ range sort (where .Site.RegularPages "Section" "ne" "vault") ".Params.weight" }}
-      {{ partial "project-card.html" . }}
+    {{ $cards := sort (where .Site.RegularPages "Section" "ne" "vault") ".Params.weight" }}
+    {{ range $i, $page := $cards }}
+      <div class="fade-in-up stagger-{{ add $i 1 }}">
+        {{ partial "project-card.html" $page }}
+      </div>
     {{ end }}
   </div>
 </section>
 
-{{/* ── Section Quick Links ── */}}
-<section>
-  <div class="flex items-center gap-3 mb-8">
-    <span class="text-[var(--color-accent-cyan)] font-mono text-sm">&gt;</span>
-    <h2 class="text-xl font-mono font-semibold text-[var(--color-text-primary)]">Sections</h2>
-    <div class="flex-1 h-px bg-[var(--color-border)]"></div>
+{{/* ── Sections Overview ── */}}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+  <div class="section-divider mb-10">
+    <span class="text-[var(--color-accent-cyan)] font-mono text-sm">//</span>
+    <h2 class="text-xl font-mono font-semibold text-[var(--color-text-primary)]">Divisions</h2>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {{ $descriptions := dict
+      "Shop" "TCG cards, graded collectibles, and lab merchandise"
+      "Tools" "Utilities and instruments built by the lab"
+      "SaaS" "Cloud products and managed services"
+      "Research" "Published experiments and analysis"
+    }}
+
+    {{ $icons := dict
+      "Shop" "&#128722;"
+      "Tools" "&#9881;"
+      "SaaS" "&#9729;"
+      "Research" "&#128300;"
+    }}
+
     {{ range .Site.Menus.main }}
     <a href="{{ .URL }}"
-       class="card-glow block rounded-lg bg-[var(--color-bg-card)] p-5 hover:bg-[var(--color-bg-card-hover)] transition-all group">
-      <span class="font-mono font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-cyan)] transition-colors">
+       class="card-glow block rounded-xl bg-[var(--color-bg-card)] p-6 hover:bg-[var(--color-bg-card-hover)] transition-all group">
+      <div class="text-2xl mb-4">{{ index $icons .Name }}</div>
+      <span class="font-mono text-base font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-cyan)] transition-colors">
         {{ .Name }}
       </span>
-      <span class="block mt-1 text-xs font-mono text-[var(--color-text-muted)]">/{{ .Name | urlize }}/</span>
+      <p class="mt-2 text-sm text-[var(--color-text-muted)] leading-relaxed">
+        {{ index $descriptions .Name }}
+      </p>
+      <div class="mt-4 flex items-center gap-1 text-xs font-mono text-[var(--color-text-muted)] group-hover:text-[var(--color-accent-cyan)] transition-colors">
+        Browse <span class="group-hover:translate-x-1 transform duration-200">&rarr;</span>
+      </div>
     </a>
     {{ end }}
   </div>

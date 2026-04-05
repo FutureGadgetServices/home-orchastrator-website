@@ -1,19 +1,24 @@
-<footer class="border-t border-[var(--color-border)] mt-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<footer class="border-t border-[var(--color-border)] bg-[var(--color-bg-secondary)]/30 mt-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
 
-      {{/* Col 1 */}}
-      <div>
-        <span class="font-mono text-sm font-semibold text-[var(--color-text-primary)]">Future Gadget Labs</span>
-        <p class="mt-2 text-sm text-[var(--color-text-muted)]">
-          {{ .Site.Params.tagline }}
+      {{/* Col 1 - Brand */}}
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-[var(--color-accent-blue)] to-[var(--color-accent-cyan)] flex items-center justify-center font-mono font-bold text-sm text-white">
+            FG
+          </div>
+          <span class="font-mono text-sm font-semibold text-[var(--color-text-primary)]">Future Gadget Labs</span>
+        </div>
+        <p class="text-sm text-[var(--color-text-muted)] max-w-md leading-relaxed">
+          {{ .Site.Params.description }}
         </p>
       </div>
 
-      {{/* Col 2 - Sections */}}
+      {{/* Col 2 - Navigation */}}
       <div>
-        <span class="font-mono text-xs text-[var(--color-text-muted)] uppercase tracking-wider">Sections</span>
-        <ul class="mt-3 space-y-2">
+        <span class="font-mono text-xs text-[var(--color-text-muted)] uppercase tracking-wider">Navigation</span>
+        <ul class="mt-4 space-y-3">
           {{ range .Site.Menus.main }}
           <li>
             <a href="{{ .URL }}" class="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-accent-cyan)] transition-colors">
@@ -24,21 +29,27 @@
         </ul>
       </div>
 
-      {{/* Col 3 - Meta */}}
+      {{/* Col 3 - System */}}
       <div>
         <span class="font-mono text-xs text-[var(--color-text-muted)] uppercase tracking-wider">System</span>
-        <ul class="mt-3 space-y-2 text-sm text-[var(--color-text-muted)] font-mono">
-          <li>Build: {{ now.Format "2006.01.02" }}</li>
-          <li>Engine: Hugo {{ hugo.Version }}</li>
-          <li>Status: Operational</li>
+        <ul class="mt-4 space-y-3 text-sm text-[var(--color-text-muted)] font-mono">
+          <li class="flex items-center gap-2">
+            <span class="status-dot-static bg-[var(--color-status-live)]"></span>
+            Operational
+          </li>
+          <li>Build {{ now.Format "2006.01.02" }}</li>
+          <li>Hugo {{ hugo.Version }}</li>
         </ul>
       </div>
 
     </div>
 
-    <div class="mt-12 pt-6 border-t border-[var(--color-border)] text-center">
+    <div class="mt-16 pt-8 border-t border-[var(--color-border)] flex flex-col sm:flex-row items-center justify-between gap-4">
       <p class="text-xs font-mono text-[var(--color-text-muted)]">
         &copy; {{ now.Format "2006" }} {{ .Site.Params.org }}. All rights reserved.
+      </p>
+      <p class="text-xs font-mono text-[var(--color-text-muted)]">
+        Built with precision.
       </p>
     </div>
   </div>
