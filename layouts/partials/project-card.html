@@ -1,0 +1,47 @@
+{{/* Project card partial — used on homepage and section lists */}}
+{{ $status := .Params.status | default "Offline" }}
+{{ $link := .Params.external_url | default .RelPermalink }}
+{{ $target := cond (isset .Params "external_url") "_blank" "_self" }}
+
+<a href="{{ $link }}" target="{{ $target }}" rel="noopener"
+   class="card-glow block rounded-lg bg-[var(--color-bg-card)] p-6 hover:bg-[var(--color-bg-card-hover)] transition-all group">
+
+  {{/* Header row: icon + status */}}
+  <div class="flex items-start justify-between mb-4">
+    {{/* Icon */}}
+    <div class="w-10 h-10 rounded bg-[var(--color-bg-secondary)] border border-[var(--color-border)] flex items-center justify-center text-lg">
+      {{ with .Params.icon }}{{ . }}{{ else }}&#9881;{{ end }}
+    </div>
+
+    {{/* Status badge */}}
+    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono font-medium uppercase tracking-wider
+      {{ if eq $status "Live" }}bg-[var(--color-status-live)]/15 text-[var(--color-status-live)]
+      {{ else if eq $status "Beta" }}bg-[var(--color-status-beta)]/15 text-[var(--color-status-beta)]
+      {{ else if eq $status "R&D" }}bg-[var(--color-status-rd)]/15 text-[var(--color-status-rd)]
+      {{ else }}bg-[var(--color-status-offline)]/15 text-[var(--color-status-offline)]{{ end }}">
+      <span class="status-dot {{ if eq $status "Live" }}bg-[var(--color-status-live)]{{ else if eq $status "Beta" }}bg-[var(--color-status-beta)]{{ else if eq $status "R&D" }}bg-[var(--color-status-rd)]{{ else }}bg-[var(--color-status-offline)]{{ end }}"></span>
+      {{ $status }}
+    </span>
+  </div>
+
+  {{/* Title */}}
+  <h3 class="font-mono font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-cyan)] transition-colors">
+    {{ .Title }}
+  </h3>
+
+  {{/* Tagline */}}
+  {{ with .Params.tagline }}
+  <p class="mt-2 text-sm text-[var(--color-text-secondary)] line-clamp-2">{{ . }}</p>
+  {{ end }}
+
+  {{/* Tags */}}
+  {{ with .Params.tags }}
+  <div class="mt-4 flex flex-wrap gap-1.5">
+    {{ range . }}
+    <span class="px-1.5 py-0.5 text-[10px] font-mono rounded bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] border border-[var(--color-border)]">
+      {{ . }}
+    </span>
+    {{ end }}
+  </div>
+  {{ end }}
+</a>

@@ -1,0 +1,38 @@
+<header class="border-b border-[var(--color-border)] bg-[var(--color-bg-secondary)]/80 backdrop-blur-md sticky top-0 z-40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      {{/* Logo / Wordmark */}}
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded bg-[var(--color-accent-blue)] flex items-center justify-center font-mono font-bold text-sm text-white">
+          FG
+        </div>
+        <div class="hidden sm:block">
+          <span class="font-mono text-sm font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-cyan)] transition-colors">
+            Future Gadget Labs
+          </span>
+          <span class="block text-[10px] font-mono text-[var(--color-text-muted)] tracking-widest uppercase">
+            Home Orchestrator v1.0
+          </span>
+        </div>
+      </a>
+
+      {{/* Navigation */}}
+      <nav class="hidden md:flex items-center gap-1">
+        {{ range .Site.Menus.main }}
+        <a href="{{ .URL }}"
+           class="nav-link px-3 py-2 text-sm font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-accent-cyan)] transition-colors">
+          {{ .Name }}
+        </a>
+        {{ end }}
+      </nav>
+
+      {{/* Status indicator */}}
+      <div class="flex items-center gap-2">
+        <span class="status-dot bg-[var(--color-status-live)]"></span>
+        <span class="text-xs font-mono text-[var(--color-text-muted)]">SYS:ONLINE</span>
+      </div>
+
+    </div>
+  </div>
+</header>

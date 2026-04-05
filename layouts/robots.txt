@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Block R&D Vault from all crawlers
+Disallow: /vault/
+
+Sitemap: {{ "sitemap.xml" | absURL }}

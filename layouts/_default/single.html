@@ -1,0 +1,36 @@
+{{ define "main" }}
+<article class="max-w-3xl">
+  <div class="mb-8">
+    {{ with .Params.status }}
+    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-mono font-medium mb-3
+      {{ if eq . "Live" }}bg-[var(--color-status-live)]/15 text-[var(--color-status-live)]
+      {{ else if eq . "Beta" }}bg-[var(--color-status-beta)]/15 text-[var(--color-status-beta)]
+      {{ else if eq . "R&D" }}bg-[var(--color-status-rd)]/15 text-[var(--color-status-rd)]
+      {{ else }}bg-[var(--color-status-offline)]/15 text-[var(--color-status-offline)]{{ end }}">
+      <span class="status-dot {{ if eq . "Live" }}bg-[var(--color-status-live)]{{ else if eq . "Beta" }}bg-[var(--color-status-beta)]{{ else if eq . "R&D" }}bg-[var(--color-status-rd)]{{ else }}bg-[var(--color-status-offline)]{{ end }}"></span>
+      {{ . }}
+    </span>
+    {{ end }}
+    <h1 class="text-3xl font-mono font-bold text-[var(--color-text-primary)]">{{ .Title }}</h1>
+    {{ with .Params.tagline }}
+    <p class="mt-2 text-lg text-[var(--color-text-secondary)]">{{ . }}</p>
+    {{ end }}
+  </div>
+
+  <div class="prose prose-invert prose-sm max-w-none
+    prose-headings:font-mono prose-headings:text-[var(--color-text-primary)]
+    prose-a:text-[var(--color-accent-cyan)] prose-a:no-underline hover:prose-a:underline
+    prose-code:text-[var(--color-accent-cyan)] prose-code:font-mono">
+    {{ .Content }}
+  </div>
+
+  {{ with .Params.external_url }}
+  <div class="mt-8">
+    <a href="{{ . }}" target="_blank" rel="noopener"
+       class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-accent-blue)] hover:bg-[var(--color-accent-blue)]/80 text-white text-sm font-mono rounded transition-colors">
+      Launch &rarr;
+    </a>
+  </div>
+  {{ end }}
+</article>
+{{ end }}

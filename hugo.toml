@@ -1,0 +1,50 @@
+baseURL = "https://futuregadgetlabs.io"
+languageCode = "en-us"
+title = "Future Gadget Labs // Home Orchestrator"
+enableRobotsTXT = true
+
+[params]
+  tagline = "Central Command for All Lab Operations"
+  description = "The digital front-door for Future Gadget Labs. A unified hub for gadgets, tools, and experimental research."
+  org = "Future Gadget Labs"
+
+[menus]
+  [[menus.main]]
+    name = "Shop"
+    url = "/shop/"
+    weight = 10
+  [[menus.main]]
+    name = "Tools"
+    url = "/tools/"
+    weight = 20
+  [[menus.main]]
+    name = "SaaS"
+    url = "/saas/"
+    weight = 30
+  [[menus.main]]
+    name = "Research"
+    url = "/research/"
+    weight = 40
+
+# R&D vault: excluded from sitemap, robots, and search
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[module]
+  [module.hugoMounts]
+    [[module.hugoMounts]]
+      source = "assets"
+      target = "assets"
+    [[module.hugoMounts]]
+      source = "static"
+      target = "static"

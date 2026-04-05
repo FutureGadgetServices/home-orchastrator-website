@@ -1,0 +1,6 @@
+# Cloudflare Pages custom headers
+# The /vault/ path should be protected via Cloudflare Access.
+# See: https://developers.cloudflare.com/cloudflare-one/applications/configure-apps/self-hosted-apps/
+
+/vault/*
+  X-Robots-Tag: noindex, nofollow

@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="mb-10">
+  <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-[var(--color-accent-purple)]/30 bg-[var(--color-accent-purple)]/10 mb-4">
+    <span class="status-dot bg-[var(--color-accent-purple)]"></span>
+    <span class="font-mono text-xs text-[var(--color-accent-purple)] uppercase tracking-wider">Restricted Access</span>
+  </div>
+
+  <h1 class="text-3xl font-mono font-bold text-[var(--color-text-primary)]">
+    <span class="text-[var(--color-accent-purple)]">&gt;</span> R&amp;D Vault
+  </h1>
+  <p class="mt-2 text-[var(--color-text-secondary)]">
+    Classified projects and experimental research. This section is not indexed.
+  </p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {{ range .Pages }}
+  {{ partial "project-card.html" . }}
+  {{ end }}
+</div>
+{{ end }}

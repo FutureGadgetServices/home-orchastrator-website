@@ -1,0 +1,83 @@
+{{ define "main" }}
+
+{{/* ── Hero Section ── */}}
+<section class="py-16 sm:py-24 text-center">
+  <p class="font-mono text-xs text-[var(--color-accent-cyan)] tracking-[0.3em] uppercase mb-4">
+    // System Initialized
+  </p>
+  <h1 class="text-4xl sm:text-5xl lg:text-6xl font-mono font-bold text-[var(--color-text-primary)] leading-tight">
+    Future Gadget Labs
+  </h1>
+  <p class="mt-4 text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+    {{ .Site.Params.tagline }}
+  </p>
+  <div class="mt-6 font-mono text-sm text-[var(--color-text-muted)]">
+    <span class="cursor-blink">Orchestrating {{ len (where .Site.RegularPages "Section" "ne" "vault") }} active gadgets</span>
+  </div>
+</section>
+
+{{/* ── System Status Bar ── */}}
+<section class="mb-12">
+  <div class="flex flex-wrap items-center justify-center gap-6 px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)]/50">
+    {{ $allPages := where .Site.RegularPages "Section" "ne" "vault" }}
+    {{ $live := where $allPages ".Params.status" "Live" }}
+    {{ $beta := where $allPages ".Params.status" "Beta" }}
+    {{ $rd := where $allPages ".Params.status" "R&D" }}
+
+    <div class="flex items-center gap-2">
+      <span class="status-dot bg-[var(--color-status-live)]"></span>
+      <span class="font-mono text-xs text-[var(--color-text-secondary)]">Live: {{ len $live }}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="status-dot bg-[var(--color-status-beta)]"></span>
+      <span class="font-mono text-xs text-[var(--color-text-secondary)]">Beta: {{ len $beta }}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="status-dot bg-[var(--color-status-rd)]"></span>
+      <span class="font-mono text-xs text-[var(--color-text-secondary)]">R&amp;D: {{ len $rd }}</span>
+    </div>
+    <div class="hidden sm:block w-px h-4 bg-[var(--color-border)]"></div>
+    <div class="font-mono text-xs text-[var(--color-text-muted)]">
+      Last build: {{ now.Format "2006-01-02 15:04 MST" }}
+    </div>
+  </div>
+</section>
+
+{{/* ── Featured Gadgets Grid ── */}}
+<section class="mb-16">
+  <div class="flex items-center gap-3 mb-8">
+    <span class="text-[var(--color-accent-cyan)] font-mono text-sm">&gt;</span>
+    <h2 class="text-xl font-mono font-semibold text-[var(--color-text-primary)]">All Gadgets</h2>
+    <div class="flex-1 h-px bg-[var(--color-border)]"></div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {{/* Pull all regular pages except vault, sorted by weight then title */}}
+    {{ range sort (where .Site.RegularPages "Section" "ne" "vault") ".Params.weight" }}
+      {{ partial "project-card.html" . }}
+    {{ end }}
+  </div>
+</section>
+
+{{/* ── Section Quick Links ── */}}
+<section>
+  <div class="flex items-center gap-3 mb-8">
+    <span class="text-[var(--color-accent-cyan)] font-mono text-sm">&gt;</span>
+    <h2 class="text-xl font-mono font-semibold text-[var(--color-text-primary)]">Sections</h2>
+    <div class="flex-1 h-px bg-[var(--color-border)]"></div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {{ range .Site.Menus.main }}
+    <a href="{{ .URL }}"
+       class="card-glow block rounded-lg bg-[var(--color-bg-card)] p-5 hover:bg-[var(--color-bg-card-hover)] transition-all group">
+      <span class="font-mono font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent-cyan)] transition-colors">
+        {{ .Name }}
+      </span>
+      <span class="block mt-1 text-xs font-mono text-[var(--color-text-muted)]">/{{ .Name | urlize }}/</span>
+    </a>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}
