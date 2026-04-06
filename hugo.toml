@@ -40,11 +40,9 @@ enableRobotsTXT = true
     [markup.goldmark.renderer]
       unsafe = true
 
-[module]
-  [module.hugoMounts]
-    [[module.hugoMounts]]
-      source = "assets"
-      target = "assets"
-    [[module.hugoMounts]]
-      source = "static"
-      target = "static"
+[[module.mounts]]
+  source = "assets"
+  target = "assets"
+[[module.mounts]]
+  source = "static"
+  target = "static"
